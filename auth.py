@@ -18,7 +18,7 @@ def token_required(f):
         if not token:
             return redirect(url_for('auth.login'))
         try:
-            data = jwt.decode(token, os.getenv('JWT_SECRET'), 'HS256')
+            data = jwt.decode(token, os.getenv('JWT_SECRET', 'shaylevin'), 'HS256')
             username = data['username']
         except Exception as e:
             print(e)
