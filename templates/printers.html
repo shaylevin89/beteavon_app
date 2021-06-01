@@ -1,0 +1,70 @@
+{% extends "profile.html" %}
+{% block content %}
+<body>
+    <section class="hero is-primary is-fullheight">
+        <div class="hero-head">
+            <nav class="navbar">
+                <div class="container">
+
+                    <div id="navbarMenuHeroA" class="navbar-menu">
+                        <div class="navbar-end">
+                            <a href="{{ url_for('main.printers') }}" class="navbar-item">
+                                printers
+                            </a>
+                            <a href="{{ url_for('main.orders') }}" class="navbar-item">
+                                Ordes
+                            </a>
+                            <a href="{{ url_for('main.settings') }}" class="navbar-item">
+                                Settings
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <h5>My  printers</h5>
+            <style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+            <table class="center">
+            {% if printers_list %}
+             <tr>
+                 <th>ID            </th>
+                 <th>Name</th>
+                 <th>Nickname       Active</th>
+  </tr>
+
+            {% for printer in printers_list %}
+       <tr>
+           <td>{{printer[0]}}</td>
+           <td>{{printer[1]}}</td>
+           <td> <form method="POST">
+               <input type="hidden" id="printer_id" name="printer_id" value="{{printer[0]}}">
+               <input type="text" id="nickname" name="nickname" placeholder="{{printer[2]}}">
+               <input type="text" id="active" name="active" placeholder="{{printer[3]}}">
+               <input type="submit" value="Update">
+           </form> </td>
+</tr>
+                {% endfor %}
+</table>
+            <br>
+            <button onClick="window.location.reload();">Refresh Printers</button>
+            {% endif %}
+
+{% if no_api %}
+
+<h1>Please provide valid api key from Printnode</h1>
+ {% endif %}
+
+        </div>
+    </section>
+</body>
+
+
+{% endblock %}

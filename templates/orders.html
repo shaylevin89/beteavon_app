@@ -1,0 +1,133 @@
+{% extends "profile.html" %}
+{% block content %}
+<body>
+    <section class="hero is-primary is-fullheight">
+        <div class="hero-head">
+            <nav class="navbar">
+                <div class="container">
+
+                    <div id="navbarMenuHeroA" class="navbar-menu">
+                        <div class="navbar-end">
+                            <a href="{{ url_for('main.printers') }}" class="navbar-item">
+                                printers
+                            </a>
+                            <a href="{{ url_for('main.orders') }}" class="navbar-item">
+                                Ordes
+                            </a>
+                            <a href="{{ url_for('main.settings') }}" class="navbar-item">
+                                Settings
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <h1>Make Order:</h1>
+
+            <form method="POST">
+                <label for="delivery_time">Delivery Time:</label>
+                  <input type="datetime-local" id="delivery_time" name="delivery_time"><br>
+                <label for="name">Client Name:</label>
+                  <input type="text" id="name" name="name"><br>
+                <label for="address">Address:</label>
+                  <input type="text" id="address" name="address"><br>
+                <label for="comments">Comments:</label>
+                  <input type="text" id="comments" name="comments"><br>
+                  <input type="submit" value="Submit">
+            </form>
+<br>
+            <style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<style type="text/css">
+       td {border: 1px #DDD solid; padding: 5px; cursor: pointer;}
+       .selected {
+                  background-color: brown;
+                  color: #FFF;
+                  }
+          </style>
+
+            <table id="table" class="center">
+            {% if orders %}
+             <tr>
+                 <th>Delivery Time</th>
+                 <th>Name</th>
+                 <th>Address</th>
+                 <th>Comments</th>
+  </tr>
+
+            {% for order in orders %}
+       <tr>
+           <td>{{order[0]}}</td>
+           <td>{{order[1]}}</td>
+           <td>{{order[2]}}</td>
+           <td>{{order[3]}}</td>
+</tr>
+                {% endfor %}
+</table>
+<input type="submit" id="tst" value="print" onclick="fnselect()" />
+
+                <script>
+        var table = document.getElementById('table');
+        var selected = table.getElementsByClassName('selected');
+        table.onclick = highlight;
+
+    function highlight(e) {
+        if (selected[0]) selected[0].className = '';
+        e.target.parentNode.className = 'selected';
+    }
+
+    function post_req(path, params, method='post') {
+        console.log('hereeee')
+      // The rest of this code assumes you are not using a library.
+      // It can be made less verbose if you use one.
+      const form = document.createElement('form');
+      form.method = method;
+      form.action = path;
+
+      for (const key in params) {
+        if (params.hasOwnProperty(key)) {
+          const hiddenField = document.createElement('input');
+          hiddenField.type = 'hidden';
+          hiddenField.name = key;
+          hiddenField.value = params[key];
+
+          form.appendChild(hiddenField);
+        }
+      }
+
+      document.body.appendChild(form);
+      form.submit();
+    }
+
+    function fnselect(){
+        var element = document.querySelectorAll('.selected');
+        if(element[0]!== undefined){ //it must be selected
+            console.log('fff')
+            console.log(element[0].children[1].firstChild.data)
+
+             post_req("/print_page", {time: element[0].children[0].firstChild.data,
+                                      name: element[0].children[1].firstChild.data,
+                                      address: element[0].children[2].firstChild.data,
+                                      comment: element[0].children[3].firstChild.data
+                                    });
+            }
+    }
+  </script>
+
+            {% endif %}
+
+            
+            
+        </div>
+    </section>
+</body>
+
+
+{% endblock %}

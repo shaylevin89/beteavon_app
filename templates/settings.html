@@ -1,0 +1,50 @@
+{% extends "profile.html" %}
+{% block content %}
+<body>
+    <section class="hero is-primary is-fullheight">
+        <div class="hero-head">
+            <nav class="navbar">
+                <div class="container">
+                    <div id="navbarMenuHeroA" class="navbar-menu">
+                        <div class="navbar-end">
+                            <a href="{{ url_for('main.printers') }}" class="navbar-item">
+                                printers
+                            </a>
+                            <a href="{{ url_for('main.orders') }}" class="navbar-item">
+                                Ordes
+                            </a>
+                            <a href="{{ url_for('main.settings') }}" class="navbar-item">
+                                Settings
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <form method="POST">
+                  <label for="api_key">Insert api-key:</label><br>
+                  <input type="text" id="api_key" name="api_key"><br>
+                  <input type="submit" value="Submit">
+            </form>
+            <table>
+            {% if api_key %}
+             <tr>
+    <th>API keys</th>
+  </tr>
+
+            {% for api in api_key %}
+       <tr>
+    <td>{{api[0]}}</td>
+</tr>
+                {% endfor %}
+</table>
+            {% endif %}
+{% if no_api %}
+<h1>In order to see printers and print orders please insert api-key from printnode</h1>
+ {% endif %}
+        </div>
+    </section>
+</body>
+
+
+{% endblock %}
