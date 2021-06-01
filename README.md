@@ -10,18 +10,20 @@ Pre requirements:
 
 Instruction:
 
-In My panel page:
-
-Insert your API key from printnode in Settings page
+My panel:
 
 
-In Printers page:
+Settings page:
+Insert your API key from printnode 
+
+
+Printers page:
 
 Manage your printers, insert nickname for printer as you wish,
 
 Make printer active by change the printer active state to true or unactive by setting the active state to false.
 
-In Orders page:
+Orders page:
 
 Fill the order form to make new order.
 
