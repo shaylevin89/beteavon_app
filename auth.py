@@ -46,7 +46,7 @@ def login_post():
         return redirect(url_for('auth.login'))  # if the user doesn't exist or password is wrong, reload the page
     token = jwt.encode({'username': nickname,
                         'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=int(os.getenv('JWT_EXP', 30)))},
-                       os.getenv('JWT_SECRET'), 'HS256')
+                        os.getenv('JWT_SECRET', 'shaylevin'), 'HS256')
     response = redirect(url_for('main.profile'))
     session['Auth-token'] = token
     return response
