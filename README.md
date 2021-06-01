@@ -14,6 +14,7 @@ My panel:
 
 
 Settings page:
+
 Insert your API key from printnode 
 
 
