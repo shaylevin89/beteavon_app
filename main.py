@@ -41,7 +41,7 @@ def edit_printer(username):
     printer_id = request.form['printer_id']
     nickname = request.form['nickname']
     active = request.form['active']
-    logging.info(printer_id, nickname, active)
+    logging.info(f'{printer_id}, {nickname}, {active}')
     DB.update_printers(printer_id, nickname, active)
     return redirect('/printers')
 
